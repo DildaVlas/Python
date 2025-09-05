@@ -1,21 +1,36 @@
-import random
-
-
 def task_1(s):
-    chars = list(s)
-    random.shuffle(chars)
-    return ''.join(chars)
+    max_count = 0
+    current_count = 0
+    for char in s:
+        if 'а' <= char <= 'я' or 'А' <= char <= 'Я':
+            current_count += 1
+            max_count = max(max_count, current_count)
+        else:
+            current_count = 0
+    return max_count
 
 
 def task_2(s):
-    uppercase_chars = [char for char in s if char.isupper()]
-    return uppercase_chars == uppercase_chars[::-1]
+    words = s.split()
+    min_num = None
+    for word in words:
+        if word.isdigit():
+            num = int(word)
+            if min_num is None or num < min_num:
+                min_num = num
+    return min_num
 
 
 def task_3(s):
-    words = s.split()
-    sorted_words = sorted(words, key=len)
-    return ' '.join(sorted_words)
+    max_count = 0
+    current_count = 0
+    for char in s:
+        if char.isdigit():
+            current_count += 1
+            max_count = max(max_count, current_count)
+        else:
+            current_count = 0
+    return max_count
 
 
 try:
