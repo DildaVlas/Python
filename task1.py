@@ -1,9 +1,18 @@
-import re
+# Чтение списка строк с клавиатуры
+def task_1():
+    strings = []
+    print("Введите строки (для завершения введите 'stop'):")
+    while True:
+        inp = input()
+        if inp.lower() == 'stop':
+            break
+        strings.append(inp)
+
+    # Упорядочивание строк по длине
+    return sorted(strings, key=len)
 
 
-def task_1(string):
-    pattern = r'\b(\d{1,2})\s+([А-ЯЁа-яё]+)\s+(\d{4})\b'
-    return re.findall(pattern, string)
-
-
-print(task_1(input('Введите строку: ')))
+# Вывод упорядоченного списка строк
+print("Упорядоченный список строк:")
+for s in task_1():
+    print(s)
