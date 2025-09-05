@@ -8,8 +8,8 @@ def task_1():
             break
         strings.append(inp)
 
-    # Упорядочивание строк по длине
-    return sorted(strings, key=len)
+    # Упорядочивание строк по количеству слов
+    return sorted(strings, key=lambda x: len(x.split()))
 
 
 # Вывод упорядоченного списка строк
