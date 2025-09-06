@@ -1,24 +1,39 @@
-def max_evaluation(heights, K):
-    max_sum = current_sum = sum(heights[:K])
-    for i in range(K, len(heights)):
-        current_sum += heights[i] - heights[i - K]
-        if current_sum > max_sum:
-            max_sum = current_sum
-    return max_sum
+import re
 
 
-def read_input(filename):
-    with open(filename, 'r') as file:
-        N, K = map(int, file.readline().split())
-        heights = [int(file.readline()) for _ in range(N)]
-    return heights, K
+def is_valid_email(email):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    return re.match(pattern, email) is not None
+
+
+def validate_email(email):
+    if not is_valid_email(email):
+        raise ValueError("Некорректный адрес электронной почты")
+    return email
 
 
 # Пример использования
-heights_A, K_A = read_input('data/27-170a.txt')
-heights_B, K_B = read_input('data/27-170.txt')
+try:
+    email = input("Введите адрес электронной почты: ")
+    validated_email = validate_email(email)
+    print(f"Адрес электронной почты: {validated_email}")
+except ValueError as e:
+    print(e)
 
-max_eval_A = max_evaluation(heights_A, K_A)
-max_eval_B = max_evaluation(heights_B, K_B)
+"""
+1. Валидация данных
+Валидация данных — это процесс проверки данных на соответствие определенным критериям или правилам. Цель валидации — убедиться, что данные корректны и могут быть использованы в дальнейшем процессе обработки.
 
-print(f"{max_eval_A} {max_eval_B}")
+2. Проверка строки на соответствие регулярному выражению
+Для проверки строки на соответствие регулярному выражению в Python можно использовать модуль re. Основной метод для этого — re.match(pattern, string), который возвращает объект совпадения, если строка соответствует шаблону, и None в противном случае.
+
+3. Модуль re и его методы
+Модуль re в Python отвечает за работу с регулярными выражениями. Некоторые из его основных методов:
+
+re.match(pattern, string): Проверяет, соответствует ли начало строки шаблону.
+re.search(pattern, string): Ищет первое совпадение шаблона в строке.
+re.findall(pattern, string): Возвращает список всех совпадений шаблона в строке.
+re.finditer(pattern, string): Возвращает итератор, содержащий все совпадения шаблона в строке.
+re.sub(pattern, repl, string): Заменяет все совпадения шаблона в строке на указанную строку или результат вызова функции.
+Эти методы позволяют эффективно работать с регулярными выражениями в Python. Если у тебя есть дополнительные вопросы или нужна помощь с чем-то еще, дай знать!
+"""
