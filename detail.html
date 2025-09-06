@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ client.first_name }} {{ client.last_name }} - Fitness Club{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h3>{{ client.first_name }} {{ client.last_name }}</h3>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-3">Телефон:</dt>
+                    <dd class="col-sm-9">{{ client.phone }}</dd>
+                    
+                    <dt class="col-sm-3">Абонемент:</dt>
+                    <dd class="col-sm-9">
+                        {% if client.subscription %}
+                            {{ client.subscription.name }} 
+                            <small class="text-muted">({{ client.subscription.duration_days }} дн., {{ client.subscription.price }} ₽)</small>
+                        {% else %}
+                            <span class="text-muted">Не выбран</span>
+                        {% endif %}
+                    </dd>
+                    
+                    <dt class="col-sm-3">Тренер:</dt>
+                    <dd class="col-sm-9">
+                        {% if client.trainer %}
+                            {{ client.trainer.first_name }} {{ client.trainer.last_name }}
+                            <small class="text-muted">({{ client.trainer.age }} лет)</small>
+                        {% else %}
+                            <span class="text-muted">Не назначен</span>
+                        {% endif %}
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Последние посещения</h5>
+            </div>
+            <div class="card-body">
+                {% if visits %}
+                    <ul class="list-unstyled">
+                        {% for visit in visits %}
+                        <li class="mb-2">
+                            <small class="text-muted">{{ visit.visited_at|date:"d.m.Y H:i" }}</small>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="text-muted">Посещений пока нет</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a href="{% url 'client_list' %}" class="btn btn-secondary">← Назад к списку</a>
+</div>
+{% endblock %}

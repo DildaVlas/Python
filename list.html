@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Тренеры - Fitness Club{% endblock %}
+
+{% block content %}
+<h2>Список тренеров</h2>
+
+<div class="row">
+    {% for trainer in trainers %}
+    <div class="col-md-4 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ trainer.first_name }} {{ trainer.last_name }}</h5>
+                <p class="card-text">
+                    <strong>Возраст:</strong> {{ trainer.age }} лет<br>
+                    {% if trainer.bio %}
+                        <strong>О тренере:</strong> {{ trainer.bio|truncatewords:20 }}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center text-muted">Тренеров пока нет</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
